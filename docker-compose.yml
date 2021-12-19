@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  eureka-server:
+    build: ./eureka-server
+    image: fleam/spring-cloud-gateway-eureka-server
+    ports:
+      - "9000:9000"
+
+  member-service:
+    build: ./member-service
+    image: fleam/spring-cloud-gateway-member-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:9000/eureka
+
+  gateway-service:
+    build: ./gateway-service
+    image: fleam/gateway-service
+
+    ports:
+      - "8085:8085"
+    depends_on:
+      - eureka-server
+      - member-service
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:9000/eureka
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888

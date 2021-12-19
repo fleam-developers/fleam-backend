@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: member-service
+          uri: http://localhost:8082
+          predicates:
+            - Path= /members/*
+          filters:
+            - StripPrefix=1

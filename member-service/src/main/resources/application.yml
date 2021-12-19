@@ -1,0 +1,21 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: member-microservice
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
+

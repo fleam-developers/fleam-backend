@@ -1,0 +1,14 @@
+server:
+  port: 8500
+
+logging:
+  level:
+    web: debug
+
+
+
+
+spring:
+  profiles:
+    active:
+      - path # path | header | query are the other spring profiles for other strategies
