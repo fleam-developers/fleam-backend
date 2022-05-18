@@ -1,0 +1,26 @@
+## config server
+spring:
+  config:
+    import: 'configserver:'
+  application:
+    name: gateway-service
+  cloud:
+    config:
+      uri: http://config-server:8888
+    discovery:
+      enabled: true
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        - id: account-service
+          uri: lb://account-service
+          predicates:
+            - Path=/auth/**, /user/**, /movie/comment/**, /movie/rating/**
+
+        - id: movie-service
+          uri: lb://movie-service
+          predicates:
+            - Path=/movie

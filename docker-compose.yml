@@ -1,30 +1,86 @@
-version: '3.7'
-services:
-  eureka-server:
-    build: ./eureka-server
-    image: fleam/spring-cloud-gateway-eureka-server
-    ports:
-      - "9000:9000"
+version: '3.0'
 
-  member-service:
-    build: ./member-service
-    image: fleam/spring-cloud-gateway-member-service
+services:
+
+  config-server:
+    build: ./config-server                # the directory which contains the Dockerfile for that service
+    # volumes:
+    #   - ./config-server : /usr/src/app    # mounts the given source code directory to containers filesystem, so if make changes it will change in the container too
     ports:
-      - "8082:8082"
+      - 8888:8888                         # first one for the outside world (out from the container), second one inner-container
+    networks:
+      - fleam-backend-network
+
+  discovery-server:
+    build: ./discovery-server
+    ports:
+      - 8761:8761
+    networks:
+      - fleam-backend-network
     depends_on:
-      - eureka-server
-    environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:9000/eureka
+      - config-server
+    restart: always
+
 
   gateway-service:
     build: ./gateway-service
-    image: fleam/gateway-service
-
     ports:
-      - "8085:8085"
+      - 8080:8080
+    networks:
+      - fleam-backend-network
     depends_on:
-      - eureka-server
-      - member-service
+      - config-server
+      - discovery-server
+    restart: always
+
+
+  account-service:
+    build: ./account-service
+    ports:
+      - 8081:8081
+    networks:
+      - fleam-backend-network
+    depends_on:
+      - config-server
+      - discovery-server
+      - postgres
+    restart: always
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:9000/eureka
-      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/fleam
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  movie-service:
+    build: ./movie-service
+    ports:
+      - 8082:8082
+    networks:
+      - fleam-backend-network
+    depends_on:
+      - config-server
+      - discovery-server
+      - postgres
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/fleam
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=fleam
+    networks:
+      - fleam-backend-network
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+networks:
+  fleam-backend-network:
+    driver: bridge
