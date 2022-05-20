@@ -57,6 +57,8 @@ services:
       - 8082:8082
     networks:
       - fleam-backend-network
+    volumes:
+      - ./movie-service/target/movie-service-0.0.1-SNAPSHOT.jar:/usr/src/app.jar
     depends_on:
       - config-server
       - discovery-server

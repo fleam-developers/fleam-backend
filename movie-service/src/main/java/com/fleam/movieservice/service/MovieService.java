@@ -24,7 +24,7 @@ public class MovieService implements IMovieService {
 
     @Override
     public Movie createMovie(MovieForm movieForm){
-        Movie movie = new Movie(null, movieForm.name, movieForm.genre, movieForm.description);
+        Movie movie = new Movie(null, movieForm.name, movieForm.description, movieForm.poster_url, null);
         movieRepository.save(movie);
         return movie;
     }

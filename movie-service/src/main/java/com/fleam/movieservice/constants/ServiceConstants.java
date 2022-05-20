@@ -6,6 +6,7 @@ public class ServiceConstants {
 
     public static final long CHUNK_SIZE = 64000; // 1 kb
 
+    public static final String MOVIE_DATA = "moviesWithURL.csv";
 
     // http headers
     public static final String CONTENT_TYPE = "Content-Type";

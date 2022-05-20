@@ -10,6 +10,6 @@ import lombok.Setter;
 public class MovieDTO {
     public Long id;
     public String name;
-    public String genre;
+    public String poster_url;
     public String description;
 }

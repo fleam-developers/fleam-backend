@@ -10,6 +10,7 @@ import org.springframework.core.io.ClassPathResource;
 import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -19,18 +20,25 @@ import java.io.IOException;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idgen")
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "NAME", unique = true)
+    @Column(name = "NAME")
     private String name;
-
-    @Column(name = "GENRE")
-    private String genre;
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @Column(name = "POSTER_URL")
+    private String poster_url;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_genre",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    Set<Genre> genres;
 
 
     public ClassPathResource getContentPath(){

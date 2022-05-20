@@ -4,6 +4,7 @@ import com.fleam.accountservice.dto.CommentForm;
 import com.fleam.accountservice.entity.User;
 import com.fleam.accountservice.entity.Comment;
 import com.fleam.accountservice.repository.CommentRepository;
+import com.fleam.accountservice.repository.WatchingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class CommentService implements ICommentService{
 
     @Autowired
     private CommentRepository commentRepository;
+
+    @Autowired
+    private WatchingRepository watchingRepository;
 
     @Autowired
     private EntityManager entityManager;
@@ -31,6 +35,8 @@ public class CommentService implements ICommentService{
         commentRepository.save(commentObj);
         return commentObj;
     }
+
+
 
 
 }
