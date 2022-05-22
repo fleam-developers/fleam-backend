@@ -1,5 +1,6 @@
 package com.fleam.accountservice.controller;
 
+import com.fleam.accountservice.dto.BecomeCreatorForm;
 import com.fleam.accountservice.dto.UserDTO;
 import com.fleam.accountservice.dto.WatchingDTO;
 import com.fleam.accountservice.dto.WatchingForm;
@@ -17,9 +18,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
-
-    // @Value("${my.test.message: default value}")
-    // private String testMessage;
 
     private final UserService userService;
     private final Mapper mapper;
@@ -50,13 +48,17 @@ public class UserController {
         return mapper.objectToDTO(userService.createWatching(watchingForm), WatchingDTO.class);
     }
 
-
     @GetMapping(value = "/history")
     @ResponseBody
     public List<Long> getHistory(@RequestParam(name = "userId") long userId){
         return userService.getWatchings(userId).stream().map(Watching::getMovieId).collect(Collectors.toList());
     }
 
+    @PostMapping(value = "/creator")
+    @ResponseBody
+    public UserDTO becomeCreator(@RequestBody BecomeCreatorForm user){
+        return mapper.objectToDTO(userService.becomeCreator(user), UserDTO.class);
+    }
 
 
 

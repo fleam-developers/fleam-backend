@@ -6,15 +6,13 @@ import com.fleam.movieservice.entity.Genre;
 import com.fleam.movieservice.entity.Movie;
 import com.fleam.movieservice.repository.GenreRepository;
 import com.fleam.movieservice.repository.MovieRepository;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.nio.file.*;
 import java.util.*;
@@ -33,6 +31,10 @@ public class DatabasePopulate {
 
     @Value("${populate-database.movies: false}")
     public boolean isPopulateMovies;
+
+    @Value("${movies-path: /movies}")
+    public String movies_path;
+
 
     public void populateGenres(){
         String[] genreNames = new String[]{
@@ -65,10 +67,10 @@ public class DatabasePopulate {
 
     public void populateMovies() throws IOException {
         ArrayList<Movie> movieObjs = new ArrayList<>();
-        ClassPathResource path =  new ClassPathResource(ServiceConstants.MOVIES_PATH + "/" + ServiceConstants.MOVIE_DATA);
 
-        File file = new File(getClass().getClassLoader().getResource("/movies/movies.csv").getFile());
-        String data = new String(MovieServiceApplication.class.getClassLoader().getResourceAsStream("/movies/movies.csv").readAllBytes());
+        String data = new String(Files.readAllBytes(Path.of(movies_path+"/movies.csv")));
+
+
         for (String line : data.split("\\r?\\n")) {
             // movieId,title,genres,poster_url
             String[] elems = line.split(",");

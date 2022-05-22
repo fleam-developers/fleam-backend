@@ -1,5 +1,6 @@
 package com.fleam.accountservice.service;
 
+import com.fleam.accountservice.dto.CommentDTO;
 import com.fleam.accountservice.dto.CommentForm;
 import com.fleam.accountservice.entity.User;
 import com.fleam.accountservice.entity.Comment;
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService implements ICommentService{
@@ -24,8 +27,14 @@ public class CommentService implements ICommentService{
     private EntityManager entityManager;
 
     @Override
-    public List<Comment> getCommentsOfMovie(long movieId) {
-        return commentRepository.findByMovieId(movieId);
+    public List<CommentDTO> getCommentsOfMovie(long movieId) {
+        List<Comment> comments = commentRepository.findByMovieId(movieId);
+        List<CommentDTO> result = new ArrayList<>();
+        for (Comment com : comments) {
+            CommentDTO commentDTO = new CommentDTO(com.getId(), com.getMovieId(), com.getComment(), com.getUser().getUsername());
+            result.add(commentDTO);
+        }
+        return result;
     }
 
     public Comment createComment(long movieId, CommentForm commentForm){

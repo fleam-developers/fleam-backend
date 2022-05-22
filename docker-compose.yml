@@ -58,7 +58,7 @@ services:
     networks:
       - fleam-backend-network
     volumes:
-      - ./movie-service/target/movie-service-0.0.1-SNAPSHOT.jar:/usr/src/app.jar
+      - /Users/selim/Desktop/fleam-temp/movies:/movies
     depends_on:
       - config-server
       - discovery-server
@@ -81,6 +81,7 @@ services:
     networks:
       - fleam-backend-network
     volumes:
+      # - ~/apps/postgres:/var/lib/postgresql/data
       - ./postgres-data:/var/lib/postgresql/data
 
 networks:

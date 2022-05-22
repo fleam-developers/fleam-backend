@@ -3,6 +3,7 @@ package com.fleam.movieservice.config;
 import com.fleam.movieservice.client.AccountServiceClient;
 import com.fleam.movieservice.mapper.Mapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,9 @@ public class MovieConfig {
 
     @Bean
     @LoadBalanced
-    public RestTemplate getRestTemplate(){return new RestTemplate();}
+    public RestTemplate restTemplate(){return new RestTemplate();}
+
+
 
 
 }

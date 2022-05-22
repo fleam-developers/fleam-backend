@@ -23,13 +23,10 @@ public class MovieController {
     private final RatingService ratingService;
     private final MovieServiceClient movieServiceClient;
 
-
-
     @GetMapping("/comment/{movieId}")
     @ResponseBody
     public List<CommentDTO> getCommentsForMovie(@PathVariable long movieId){
-        movieServiceClient.doesMovieExists(movieId);
-        return mapper.objectsToDTOs(commentService.getCommentsOfMovie(movieId), CommentDTO.class);
+        return commentService.getCommentsOfMovie(movieId);
     }
 
     @PostMapping("/comment/{movieId}")

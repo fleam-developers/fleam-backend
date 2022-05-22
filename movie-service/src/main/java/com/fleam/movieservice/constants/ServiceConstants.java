@@ -1,8 +1,15 @@
 package com.fleam.movieservice.constants;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class ServiceConstants {
+
+
+    @Value("${movies-path: ./movies}")
+
+
     public static final String MOVIES_PATH = "/movies";
-    public static final String CONTENT_FORMAT = ".mkv";
+    public static final String CONTENT_FORMAT = ".mp4";
 
     public static final long CHUNK_SIZE = 64000; // 1 kb
 
@@ -10,7 +17,7 @@ public class ServiceConstants {
 
     // http headers
     public static final String CONTENT_TYPE = "Content-Type";
-    public static final String CONTENT_TYPE_VALUE = "video/x-matroska"; // x-matroska
+    public static final String CONTENT_TYPE_VALUE = "video/mp4"; // x-matroska
     public static final String CONTENT_LENGTH = "Content-Length";
     public static final String CONTENT_RANGE = "Content-Range";
     public static final String ACCEPT_RANGES = "Accept-Ranges";

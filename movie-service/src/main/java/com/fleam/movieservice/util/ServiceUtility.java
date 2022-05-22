@@ -5,8 +5,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
 public class ServiceUtility {
-
-
     public static long[] parseHttpRangeHeader(String rangeList){
         if (rangeList == null || rangeList == ""){
             return new long[]{0, ServiceConstants.CHUNK_SIZE};

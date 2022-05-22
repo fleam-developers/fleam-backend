@@ -1,7 +1,9 @@
 package com.fleam.accountservice.service;
 
 
+import com.fleam.accountservice.dto.BecomeCreatorForm;
 import com.fleam.accountservice.dto.RegisterForm;
+import com.fleam.accountservice.dto.UserDTO;
 import com.fleam.accountservice.dto.WatchingForm;
 import com.fleam.accountservice.entity.User;
 import com.fleam.accountservice.entity.Watching;
@@ -61,6 +63,14 @@ public class UserService implements IUserService {
                 acc, 0L, new Date(System.currentTimeMillis()), false);
         watchingRepository.save(watching);
         return watching;
+    }
+
+    @Override
+    public User becomeCreator(BecomeCreatorForm userForm){
+        User user = userRepository.getById(userForm.userId);
+        user.setCreator(true);
+        userRepository.save(user);
+        return user;
     }
 
 }

@@ -1,6 +1,8 @@
 package com.fleam.accountservice.service;
 
+import com.fleam.accountservice.dto.BecomeCreatorForm;
 import com.fleam.accountservice.dto.RegisterForm;
+import com.fleam.accountservice.dto.UserDTO;
 import com.fleam.accountservice.dto.WatchingForm;
 import com.fleam.accountservice.entity.User;
 import com.fleam.accountservice.entity.Watching;
@@ -19,6 +21,8 @@ public interface IUserService {
     public Watching getWatchingForMovie(long userId, long movieId);
 
     public Watching createWatching(WatchingForm watchingForm);
+
+    public User becomeCreator(BecomeCreatorForm userForm);
 
 
 }

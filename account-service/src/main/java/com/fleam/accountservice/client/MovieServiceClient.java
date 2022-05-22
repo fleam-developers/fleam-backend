@@ -8,8 +8,8 @@ public class MovieServiceClient {
     public RestTemplate restTemplate;
 
     public boolean doesMovieExists(long movieId){
-        String resp = restTemplate.getForObject("http://movie-service/movie?movieId="+String.valueOf(movieId), String.class);
+        boolean resp = Boolean.TRUE.equals(restTemplate.getForObject("http://movie-service/movie/check?movieId=" + String.valueOf(movieId), boolean.class));
         System.out.println(resp);
-        return true;
+        return resp;
     }
 }

@@ -1,6 +1,7 @@
 package com.fleam.movieservice.controller;
 
 import com.fleam.movieservice.dto.MovieDTO;
+import com.fleam.movieservice.dto.MovieDetailsDTO;
 import com.fleam.movieservice.dto.MovieForm;
 import com.fleam.movieservice.entity.Movie;
 import com.fleam.movieservice.mapper.Mapper;
@@ -26,10 +27,23 @@ public class MovieController {
 
     @GetMapping
     @ResponseBody
-    public MovieDTO getMovieDetails(@RequestParam(value = "movieId") long movieId){
-        Movie movie = movieService.getMovie(movieId);
-        return mapper.objectToDTO(movie, MovieDTO.class);
+    public MovieDetailsDTO getMovieDetails(@RequestParam(value = "movieId") long movieId,
+                                           @RequestHeader("Authorization") String authHeader){
+        return movieService.getMovieDetails(movieId, authHeader);
     }
+
+    @GetMapping("/check")
+    @ResponseBody
+    public boolean doesMovieExists(@RequestParam(value = "movieId") long movieId){
+        try{
+            MovieDTO movie = movieService.getMovie(movieId);
+            return movie != null;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
 
     @PostMapping
     @ResponseBody

@@ -33,6 +33,9 @@ public class User implements UserDetails {
     @Column(name = "EMAIL", unique = true)
     private String email;
 
+    @Column(name = "CREATOR", columnDefinition = "boolean default false")
+    private boolean creator;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

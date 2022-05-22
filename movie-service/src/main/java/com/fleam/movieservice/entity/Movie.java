@@ -1,15 +1,19 @@
 package com.fleam.movieservice.entity;
 
+import com.fleam.movieservice.MovieServiceApplication;
 import com.fleam.movieservice.constants.ServiceConstants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Set;
 
 @Entity
@@ -32,7 +36,6 @@ public class Movie {
     @Column(name = "POSTER_URL")
     private String poster_url;
 
-
     @ManyToMany
     @JoinTable(
             name = "movie_genre",
@@ -41,13 +44,7 @@ public class Movie {
     Set<Genre> genres;
 
 
-    public ClassPathResource getContentPath(){
-        return new ClassPathResource(ServiceConstants.MOVIES_PATH + "/" + this.id + ServiceConstants.CONTENT_FORMAT);
-    }
 
-    public long getContentSize() throws IOException {
-        File file = this.getContentPath().getFile();
-        return file.length();
-    }
+
 
 }
