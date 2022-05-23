@@ -1,6 +1,7 @@
 package com.fleam.movieservice.controller;
 
 import com.fleam.movieservice.client.AccountServiceClient;
+import com.fleam.movieservice.client.RecommendationServiceClient;
 import com.fleam.movieservice.dto.CatalogDTO;
 import com.fleam.movieservice.dto.GenreDTO;
 import com.fleam.movieservice.entity.Genre;
@@ -32,14 +33,19 @@ public class CatalogController {
     @Autowired
     private CatalogService catalogService;
 
+    @Autowired
+    private RecommendationServiceClient recommendationServiceClient;
+
     @GetMapping
     @ResponseBody
     public CatalogDTO getCatalogForUser(@RequestParam(value = "userId") long userId,
                                         @RequestHeader("Authorization") String authHeader){
         if (!accountServiceClient.isUserAuthorized(authHeader)) {return null;}
         // recommendation catalog
+        CatalogDTO recommendationsCatalog = catalogService.getRecommendationCatalog(authHeader, userId);
         CatalogDTO historyCatalog = catalogService.getHistoryCatalog(authHeader, userId);
         CatalogDTO catalog = catalogService.getGenreCatalog();
+        catalog.joinCatalogs(recommendationsCatalog);
         catalog.joinCatalogs(historyCatalog);
         return catalog;
     }

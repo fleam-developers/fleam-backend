@@ -1,6 +1,7 @@
 package com.fleam.movieservice.service;
 
 import com.fleam.movieservice.client.AccountServiceClient;
+import com.fleam.movieservice.client.RecommendationServiceClient;
 import com.fleam.movieservice.dto.CatalogDTO;
 import com.fleam.movieservice.dto.GenreDTO;
 import com.fleam.movieservice.dto.MovieDTO;
@@ -27,6 +28,9 @@ public class CatalogService implements ICatalogService{
     private AccountServiceClient accountServiceClient;
 
     @Autowired
+    private RecommendationServiceClient recommendationServiceClient;
+
+    @Autowired
     private MovieRepository movieRepository;
 
     @Override
@@ -45,5 +49,15 @@ public class CatalogService implements ICatalogService{
         return new CatalogDTO(List.of(genre));
     }
 
+    @Override
+    public CatalogDTO getRecommendationCatalog(String authHeader, Long userId){
+        List<Long> recommendedMovieIds = recommendationServiceClient.getRecommendationsForUser(userId, authHeader);
+        List<MovieDTO> movies = mapper.objectsToDTOs(movieRepository.findAllById(recommendedMovieIds), MovieDTO.class);
+        GenreDTO genre = new GenreDTO();
+        genre.setId(0L);
+        genre.setName("Recommended Movies Based on Your Ratings");
+        genre.setMoviesNotRandom(movies);
+        return new CatalogDTO(List.of(genre));
+    }
 
 }

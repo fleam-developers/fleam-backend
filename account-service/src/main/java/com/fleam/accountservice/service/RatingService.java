@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -38,8 +39,10 @@ public class RatingService implements IRatingService{
     }
 
     @Override
-    public List<Rating> getAllRatingsOfUser(long userId) {
-        return ratingRepository.findAllByUserId(userId);
+    public HashMap<Long, Integer> getAllRatingsOfUser(long userId) {
+        HashMap<Long, Integer> ratingsMap = new HashMap<>();
+        ratingRepository.findAllByUserId(userId).forEach(rating -> ratingsMap.put(rating.getMovieId(), rating.getRating()));
+        return ratingsMap;
     }
 
     @Override

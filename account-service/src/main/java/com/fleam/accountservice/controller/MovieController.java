@@ -1,16 +1,14 @@
 package com.fleam.accountservice.controller;
 
 import com.fleam.accountservice.client.MovieServiceClient;
-import com.fleam.accountservice.dto.CommentDTO;
-import com.fleam.accountservice.dto.CommentForm;
-import com.fleam.accountservice.dto.RatingDTO;
-import com.fleam.accountservice.dto.RatingForm;
+import com.fleam.accountservice.dto.*;
 import com.fleam.accountservice.mapper.Mapper;
 import com.fleam.accountservice.service.CommentService;
 import com.fleam.accountservice.service.RatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -53,11 +51,17 @@ public class MovieController {
         return mapper.objectToDTO(ratingService.getRatingOfUser(movieId, userId), RatingDTO.class);
     }
 
+    @GetMapping("/rating/user/{userId}")
+    @ResponseBody
+    public HashMap<Long, Integer> getAllRatingsOfUser(@PathVariable long userId){
+        return ratingService.getAllRatingsOfUser(userId);
+    }
+
+
     @PostMapping("/rating/{movieId}")
     @ResponseBody
     public RatingDTO rateMovie(@PathVariable long movieId, @RequestBody RatingForm ratingForm){
         return mapper.objectToDTO(ratingService.createRating(movieId, ratingForm), RatingDTO.class);
-
     }
 
 }

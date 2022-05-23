@@ -8,6 +8,7 @@ import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface IMovieService {
     public Movie createMovie(MovieForm movieForm);
@@ -24,5 +25,7 @@ public interface IMovieService {
     public String getMoviePath(Movie movie);
 
     public long getSizeOfMovie(Movie movie);
+
+    public List<MovieDTO> getSimilarMovies(long movieId, String authHeader);
 
 }

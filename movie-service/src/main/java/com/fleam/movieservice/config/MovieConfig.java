@@ -1,6 +1,7 @@
 package com.fleam.movieservice.config;
 
 import com.fleam.movieservice.client.AccountServiceClient;
+import com.fleam.movieservice.client.RecommendationServiceClient;
 import com.fleam.movieservice.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +22,9 @@ public class MovieConfig {
 
     @Bean
     public AccountServiceClient accountServiceClient() {return new AccountServiceClient();}
+
+    @Bean
+    public RecommendationServiceClient recommendationServiceClient() {return new RecommendationServiceClient();}
 
     @Bean
     @LoadBalanced

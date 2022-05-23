@@ -10,6 +10,14 @@ spring:
     discovery:
       enabled: true
     gateway:
+#      globalcors:
+#        corsConfigurations:
+#          '[/**]':
+#            allowedOrigins: "*"
+#            allowedHeaders: "*"
+#            allowedMethods:
+#              - GET
+#              - POST
       discovery:
         locator:
           lower-case-service-id: true

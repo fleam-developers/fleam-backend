@@ -16,4 +16,5 @@ public class MovieDetailsDTO {
     public String description;
     public float averageRating;
     public List<MovieCommentDTO> comments;
+    public List<MovieDTO> similar_movies;
 }

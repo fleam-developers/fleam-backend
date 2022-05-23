@@ -1,0 +1,13 @@
+---
+version: "3.8"
+services:
+  api:
+    image: "fleam-recommender:dev"
+    build:
+      target: dev_build
+      context: .
+      dockerfile: ./Dockerfile
+      cache_from:
+        - "fleam-recommender:latest"
+        - "fleam-recommender:dev"
+    command: python manage.py runserver development

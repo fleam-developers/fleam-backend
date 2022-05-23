@@ -11,5 +11,6 @@ public interface ICatalogService {
 
     public CatalogDTO getHistoryCatalog(String authHeader, Long userId);
 
+    public CatalogDTO getRecommendationCatalog(String authHeader, Long userId);
 
 }

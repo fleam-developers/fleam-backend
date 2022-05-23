@@ -2,6 +2,7 @@ package com.fleam.movieservice.service;
 
 import com.fleam.movieservice.MovieServiceApplication;
 import com.fleam.movieservice.client.AccountServiceClient;
+import com.fleam.movieservice.client.RecommendationServiceClient;
 import com.fleam.movieservice.constants.ServiceConstants;
 import com.fleam.movieservice.dto.MovieDTO;
 import com.fleam.movieservice.dto.MovieDetailsDTO;
@@ -25,6 +26,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Service
 public class MovieService implements IMovieService {
@@ -41,6 +43,10 @@ public class MovieService implements IMovieService {
     @Autowired
     private AccountServiceClient accountServiceClient;
 
+    @Autowired
+    private RecommendationServiceClient recommendationServiceClient;
+
+
     @Override
     public Movie createMovie(MovieForm movieForm){
         Movie movie = new Movie(null, movieForm.name, movieForm.description, movieForm.poster_url, null);
@@ -53,6 +59,7 @@ public class MovieService implements IMovieService {
         MovieDetailsDTO movie = mapper.objectToDTO(movieRepository.getById(id), MovieDetailsDTO.class);
         movie.setComments(accountServiceClient.getCommentsOfMovie(authHeader, id));
         movie.setAverageRating(accountServiceClient.getAverageRatingForMovie(authHeader, id));
+        movie.setSimilar_movies(getSimilarMovies(id, authHeader));
         return movie;
     }
 
@@ -113,5 +120,11 @@ public class MovieService implements IMovieService {
             return file.length();
     }
 
+    @Override
+    public List<MovieDTO> getSimilarMovies(long movieId, String authHeader){
+        List<Long> similarMovieIds = recommendationServiceClient.getRecommendationsForMovie(movieId, authHeader);
+        List<MovieDTO> movies = mapper.objectsToDTOs(movieRepository.findAllById(similarMovieIds), MovieDTO.class);
+        return movies;
+    }
 
 }
