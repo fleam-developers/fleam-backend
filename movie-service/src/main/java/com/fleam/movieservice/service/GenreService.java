@@ -23,9 +23,12 @@ public class GenreService implements IGenreService{
 
     @Override
     public List<Genre> getAllGenres(){
-
-
         return genreRepository.findAll();
+    }
+
+    @Override
+    public Genre getGenreById(long genreId){
+        return genreRepository.getById(genreId);
     }
 
 }

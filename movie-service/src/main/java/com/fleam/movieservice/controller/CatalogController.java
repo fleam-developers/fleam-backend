@@ -2,6 +2,7 @@ package com.fleam.movieservice.controller;
 
 import com.fleam.movieservice.client.AccountServiceClient;
 import com.fleam.movieservice.client.RecommendationServiceClient;
+import com.fleam.movieservice.constants.ServiceConstants;
 import com.fleam.movieservice.dto.CatalogDTO;
 import com.fleam.movieservice.dto.GenreDTO;
 import com.fleam.movieservice.entity.Genre;
@@ -44,9 +45,29 @@ public class CatalogController {
         // recommendation catalog
         CatalogDTO recommendationsCatalog = catalogService.getRecommendationCatalog(authHeader, userId);
         CatalogDTO historyCatalog = catalogService.getHistoryCatalog(authHeader, userId);
-        CatalogDTO catalog = catalogService.getGenreCatalog();
+        CatalogDTO catalog = catalogService.getAllGenreCatalog();
         catalog.joinCatalogs(recommendationsCatalog);
         catalog.joinCatalogs(historyCatalog);
         return catalog;
     }
+
+    @GetMapping("/{genreId}")
+    @ResponseBody
+    public CatalogDTO getCatalogForGenre(@PathVariable long genreId,
+                                         @RequestParam(value = "userId") long userId,
+                                         @RequestHeader("Authorization") String authHeader){
+        if (!accountServiceClient.isUserAuthorized(authHeader)) {return null;}
+        if (genreId == ServiceConstants.HISTORY_GENRE_ID){
+            return catalogService.getHistoryCatalog(authHeader, userId);
+        }
+        else if (genreId == ServiceConstants.RECOMMENDATIONS_GENRE_ID){
+            return catalogService.getRecommendationCatalog(authHeader, userId);
+        }
+        else{
+            return catalogService.getGenreCatalog(genreId);
+        }
+    }
+
+
+
 }

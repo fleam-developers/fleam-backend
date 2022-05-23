@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface ICatalogService {
 
-    public CatalogDTO getGenreCatalog();
+    public CatalogDTO getAllGenreCatalog();
+
+    public CatalogDTO getGenreCatalog(long genreId);
 
     public CatalogDTO getHistoryCatalog(String authHeader, Long userId);
 

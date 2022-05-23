@@ -10,6 +10,10 @@ public class ServiceConstants {
 
     public static final String MOVIES_PATH = "/movies";
     public static final String CONTENT_FORMAT = ".mp4";
+    public static final long HISTORY_GENRE_ID  = 20;
+    public static final long RECOMMENDATIONS_GENRE_ID  = 21;
+
+
 
     public static final long CHUNK_SIZE = 64000; // 1 kb
 

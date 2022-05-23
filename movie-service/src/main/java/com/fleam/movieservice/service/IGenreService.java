@@ -10,4 +10,7 @@ public interface IGenreService {
 
     public List<Genre> getAllGenres();
 
+    public Genre getGenreById(long genreId);
+
+
 }

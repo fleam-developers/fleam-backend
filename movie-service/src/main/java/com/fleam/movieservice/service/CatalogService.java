@@ -2,6 +2,7 @@ package com.fleam.movieservice.service;
 
 import com.fleam.movieservice.client.AccountServiceClient;
 import com.fleam.movieservice.client.RecommendationServiceClient;
+import com.fleam.movieservice.constants.ServiceConstants;
 import com.fleam.movieservice.dto.CatalogDTO;
 import com.fleam.movieservice.dto.GenreDTO;
 import com.fleam.movieservice.dto.MovieDTO;
@@ -34,8 +35,13 @@ public class CatalogService implements ICatalogService{
     private MovieRepository movieRepository;
 
     @Override
-    public CatalogDTO getGenreCatalog(){
+    public CatalogDTO getAllGenreCatalog(){
         return new CatalogDTO(mapper.objectsToDTOs(genreService.getAllGenres(), GenreDTO.class));
+    }
+
+    @Override
+    public CatalogDTO getGenreCatalog(long genreId){
+        return new CatalogDTO(mapper.objectsToDTOs(List.of(genreService.getGenreById(genreId)), GenreDTO.class));
     }
 
     @Override
@@ -43,7 +49,7 @@ public class CatalogService implements ICatalogService{
         List<Long> history = Arrays.asList(accountServiceClient.getHistoryOfUser(authHeader, userId));
         List<MovieDTO> movies = mapper.objectsToDTOs(movieRepository.findAllById(history), MovieDTO.class);
         GenreDTO genre = new GenreDTO();
-        genre.setId(0L);
+        genre.setId(ServiceConstants.HISTORY_GENRE_ID);
         genre.setName("Watching History");
         genre.setMoviesNotRandom(movies);
         return new CatalogDTO(List.of(genre));
@@ -54,7 +60,7 @@ public class CatalogService implements ICatalogService{
         List<Long> recommendedMovieIds = recommendationServiceClient.getRecommendationsForUser(userId, authHeader);
         List<MovieDTO> movies = mapper.objectsToDTOs(movieRepository.findAllById(recommendedMovieIds), MovieDTO.class);
         GenreDTO genre = new GenreDTO();
-        genre.setId(0L);
+        genre.setId(ServiceConstants.RECOMMENDATIONS_GENRE_ID);
         genre.setName("Recommended Movies Based on Your Ratings");
         genre.setMoviesNotRandom(movies);
         return new CatalogDTO(List.of(genre));

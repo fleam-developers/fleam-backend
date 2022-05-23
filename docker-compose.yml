@@ -59,6 +59,7 @@ services:
       - fleam-backend-network
     volumes:
       - /Users/selim/Desktop/fleam-temp/movies:/movies
+      # - /root/movies:/movies
     depends_on:
       - config-server
       - discovery-server
@@ -93,7 +94,6 @@ services:
       - fleam-backend-network
     volumes:
       - ~/apps/postgres:/var/lib/postgresql/data
-      # - ./postgres-data:/var/lib/postgresql/data
 
 networks:
   fleam-backend-network:
