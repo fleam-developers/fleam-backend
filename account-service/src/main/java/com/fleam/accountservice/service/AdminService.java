@@ -51,5 +51,16 @@ public class AdminService {
         return user.isAdmin();
     }
 
+    public User revertCreator(long userId){
+        try {
+            User user = userRepository.getById(userId);
+            user.setCreator(false);
+            userRepository.save(user);
+            return user;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
 
 }
