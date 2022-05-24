@@ -127,4 +127,11 @@ public class MovieService implements IMovieService {
         return movies;
     }
 
+    @Override
+    public List<Movie> searchMovieByName(String name){
+        return movieRepository.findByNameContainingIgnoreCase(name);
+    }
+
+
+
 }

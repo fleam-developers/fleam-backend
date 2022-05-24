@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,6 +43,14 @@ public class MovieController {
         catch (Exception e){
             return false;
         }
+    }
+
+
+    @GetMapping("/search")
+    @ResponseBody
+    public List<MovieDTO> searchMovieByName(@RequestParam(value="name") String name){
+        System.out.println(name);
+        return mapper.objectsToDTOs(movieService.searchMovieByName(name), MovieDTO.class);
     }
 
 

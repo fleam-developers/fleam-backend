@@ -28,4 +28,6 @@ public interface IMovieService {
 
     public List<MovieDTO> getSimilarMovies(long movieId, String authHeader);
 
+    public List<Movie> searchMovieByName(String name);
+
 }
