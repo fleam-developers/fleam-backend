@@ -36,6 +36,10 @@ public class User implements UserDetails {
     @Column(name = "CREATOR", columnDefinition = "boolean default false")
     private boolean creator;
 
+    @Column(name = "ADMIN", columnDefinition = "boolean default false")
+    private boolean admin;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

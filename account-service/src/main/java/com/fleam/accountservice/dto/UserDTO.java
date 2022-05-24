@@ -10,5 +10,7 @@ import lombok.Setter;
 public class UserDTO {
     public Long id;
     public String username;
+    public String email;
     public boolean creator;
+    public boolean admin;
 }

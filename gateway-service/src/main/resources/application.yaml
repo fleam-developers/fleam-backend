@@ -26,7 +26,7 @@ spring:
         - id: account-service
           uri: lb://account-service
           predicates:
-            - Path=/auth/**, /user/**, /movie/comment/**, /movie/rating/**
+            - Path=/auth/**, /user/**, /movie/comment/**, /movie/rating/**, /admin/**
 
         - id: movie-service
           uri: lb://movie-service
