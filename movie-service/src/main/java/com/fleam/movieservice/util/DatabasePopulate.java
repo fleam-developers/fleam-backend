@@ -79,7 +79,7 @@ public class DatabasePopulate {
             if (elems.length == 4){
                 poster_url=elems[3];
             }
-            Movie movie = new Movie(Long.parseLong(elems[0]), elems[1], "description", poster_url, genres);
+            Movie movie = new Movie(Long.parseLong(elems[0]), elems[1], "description", poster_url, null, genres);
             movieObjs.add(movie);
 
         }

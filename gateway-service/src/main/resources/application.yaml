@@ -10,6 +10,9 @@ spring:
     discovery:
       enabled: true
     gateway:
+      httpclient:
+        connect-timeout: 100000
+        response-timeout: 100000
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -31,4 +34,4 @@ spring:
         - id: movie-service
           uri: lb://movie-service
           predicates:
-            - Path=/movie, /movie/search, /movie/stream, /movie/stream/**, /catalog/**
+            - Path=/movie, /movie/search, /movie/stream, /movie/stream/**, /movie/upload, /catalog/**

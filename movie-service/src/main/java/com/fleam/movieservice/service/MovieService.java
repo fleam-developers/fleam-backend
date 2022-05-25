@@ -1,31 +1,27 @@
 package com.fleam.movieservice.service;
 
-import com.fleam.movieservice.MovieServiceApplication;
 import com.fleam.movieservice.client.AccountServiceClient;
 import com.fleam.movieservice.client.RecommendationServiceClient;
-import com.fleam.movieservice.constants.ServiceConstants;
 import com.fleam.movieservice.dto.MovieDTO;
 import com.fleam.movieservice.dto.MovieDetailsDTO;
-import com.fleam.movieservice.dto.MovieForm;
+import com.fleam.movieservice.dto.CreateMovieForm;
 import com.fleam.movieservice.entity.Movie;
 import com.fleam.movieservice.mapper.Mapper;
 import com.fleam.movieservice.repository.MovieRepository;
 import com.fleam.movieservice.util.ServiceUtility;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -48,10 +44,23 @@ public class MovieService implements IMovieService {
 
 
     @Override
-    public Movie createMovie(MovieForm movieForm){
-        Movie movie = new Movie(null, movieForm.name, movieForm.description, movieForm.poster_url, null);
+    public Movie createMovie(CreateMovieForm movieForm){
+        Long id = movieRepository.maxId()+1;
+        Movie movie = new Movie(id, movieForm.name, movieForm.description, movieForm.poster_url, movieForm.creator_id, null);
         movieRepository.save(movie);
         return movie;
+    }
+
+    @Override
+    public boolean uploadMovie(long movieId, MultipartFile multipartFile){
+        File file = new File(movies_path+"/"+ movieId +".mp4");
+        try {
+            multipartFile.transferTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -97,7 +106,6 @@ public class MovieService implements IMovieService {
 
         HttpHeaders headers = ServiceUtility.httpVideoBaseHeaders(contentSize, range[0], range[1]);
         byte[] data = readPartOfMovie(movie, range);
-        System.out.println(data.length);
         return ResponseEntity.status(status).headers(headers).body(data);
     }
 
@@ -111,11 +119,15 @@ public class MovieService implements IMovieService {
     }
 
     public String getMoviePath(Movie movie){
-        return movies_path +"/"+movie.getId()+".mp4";
+        if (movie.getCreator_id() == null){
+            return movies_path +"/1.mp4"; // default video
+        }
+        else{
+            return movies_path +"/"+movie.getId()+".mp4";
+        }
     }
 
     public long getSizeOfMovie(Movie movie){
-            System.out.println(getMoviePath(movie));
             File file = new File(getMoviePath(movie));
             return file.length();
     }
@@ -131,7 +143,5 @@ public class MovieService implements IMovieService {
     public List<Movie> searchMovieByName(String name){
         return movieRepository.findByNameContainingIgnoreCase(name);
     }
-
-
 
 }

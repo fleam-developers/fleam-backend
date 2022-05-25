@@ -36,6 +36,9 @@ public class Movie {
     @Column(name = "POSTER_URL")
     private String poster_url;
 
+    @Column(name = "CREATOR_ID")
+    private Long creator_id;
+
     @ManyToMany
     @JoinTable(
             name = "movie_genre",

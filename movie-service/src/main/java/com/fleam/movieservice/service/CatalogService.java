@@ -57,8 +57,14 @@ public class CatalogService implements ICatalogService{
 
     @Override
     public CatalogDTO getRecommendationCatalog(String authHeader, Long userId){
-        List<Long> recommendedMovieIds = recommendationServiceClient.getRecommendationsForUser(userId, authHeader);
-        List<MovieDTO> movies = mapper.objectsToDTOs(movieRepository.findAllById(recommendedMovieIds), MovieDTO.class);
+        List<MovieDTO> movies;
+        try{
+            List<Long> recommendedMovieIds = recommendationServiceClient.getRecommendationsForUser(userId, authHeader);
+            movies = mapper.objectsToDTOs(movieRepository.findAllById(recommendedMovieIds), MovieDTO.class);
+        }
+        catch (Exception e){
+            movies = null;
+        }
         GenreDTO genre = new GenreDTO();
         genre.setId(ServiceConstants.RECOMMENDATIONS_GENRE_ID);
         genre.setName("Recommended Movies Based on Your Ratings");

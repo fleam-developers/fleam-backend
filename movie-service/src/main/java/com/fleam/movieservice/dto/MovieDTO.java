@@ -12,4 +12,5 @@ public class MovieDTO {
     public String name;
     public String poster_url;
     public String description;
+    public Long creator_id;
 }
