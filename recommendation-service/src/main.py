@@ -16,6 +16,5 @@ async def recommendation_user(userId:int, numOfRecommendations:int) -> ResponseO
 
 @app.get("/recommendation/movie/")
 async def recommendation_movie(movieId:int, numOfRecommendations:int) -> ResponseOutput:
-    print(predict_recommendations_of_movie(movieId, numOfRecommendations))
     return predict_recommendations_of_movie(movieId, numOfRecommendations)
 
