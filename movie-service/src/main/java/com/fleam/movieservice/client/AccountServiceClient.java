@@ -2,6 +2,7 @@ package com.fleam.movieservice.client;
 
 import com.fleam.movieservice.dto.MovieCommentDTO;
 import com.fleam.movieservice.dto.MovieDetailsDTO;
+import com.fleam.movieservice.dto.WatchingDTO;
 import com.fleam.movieservice.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -82,5 +83,21 @@ public class AccountServiceClient {
             return null;
         }
     }
-    
+
+
+    public void createWatching(String authHeader, Long movieId){
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", authHeader);
+        WatchingDTO watching = new WatchingDTO(movieId);
+        HttpEntity<Object> requestEntity = new HttpEntity<Object>(watching, headers);
+        try{
+            Object response = restTemplate.postForObject(
+                    "http://account-service/user/watching", requestEntity, Object.class);
+        }
+        catch (HttpClientErrorException.Forbidden e){
+            e.printStackTrace();
+        }
+    }
+
+
 }

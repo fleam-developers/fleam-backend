@@ -44,6 +44,7 @@ public class AdminService {
 
     public boolean isAdmin(){
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        System.out.println(username);
         User user = userRepository.findByUsername(username);
         if (user == null){
             return false;

@@ -19,8 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/movie")
 public class MovieController {
-
-
     private final MovieService movieService;
     private final Mapper mapper;
 
@@ -30,7 +28,6 @@ public class MovieController {
                                            @RequestHeader("Authorization") String authHeader){
         return movieService.getMovieDetails(movieId, authHeader);
     }
-
     @GetMapping("/check")
     @ResponseBody
     public boolean doesMovieExists(@RequestParam(value = "movieId") long movieId){
@@ -43,20 +40,17 @@ public class MovieController {
         }
     }
 
-
     @GetMapping("/search")
     @ResponseBody
     public List<MovieDTO> searchMovieByName(@RequestParam(value="name") String name){
         return mapper.objectsToDTOs(movieService.searchMovieByName(name), MovieDTO.class);
     }
 
-
     @PostMapping
     @ResponseBody
     public MovieDTO createMovie(@RequestBody CreateMovieForm movieForm){
         return mapper.objectToDTO(movieService.createMovie(movieForm), MovieDTO.class);
     }
-
 
     @PostMapping("/upload")
     public ResponseEntity<Object> uploadMovie(
@@ -76,8 +70,9 @@ public class MovieController {
     @ResponseBody
     public ResponseEntity<byte[]> streamMovie(
             @RequestParam(value = "movieId") long movieId,
-            @RequestHeader(value = "Range", required = false) String httpRangeList) throws IOException {
-        return movieService.streamMovie(movieId, httpRangeList);
+            @RequestHeader(value = "Range", required = false) String httpRangeList,
+            @RequestHeader("Authorization") String authHeader) throws IOException {
+        return movieService.streamMovie(movieId, httpRangeList, authHeader);
     }
 
 

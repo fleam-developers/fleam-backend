@@ -42,7 +42,6 @@ public class MovieService implements IMovieService {
     @Autowired
     private RecommendationServiceClient recommendationServiceClient;
 
-
     @Override
     public Movie createMovie(CreateMovieForm movieForm){
         Long id = movieRepository.maxId()+1;
@@ -77,18 +76,13 @@ public class MovieService implements IMovieService {
         return mapper.objectToDTO(movieRepository.getById(movieId), MovieDTO.class);
     }
 
-
     @Override
-    public ResponseEntity<byte[]> streamMovie(long id, String rangeList) throws IOException {
-        if (rangeList == null){
-            System.out.println("initial request");
-        }
+    public ResponseEntity<byte[]> streamMovie(long id, String rangeList, String authHeader) throws IOException {
         long[] range = ServiceUtility.parseHttpRangeHeader(rangeList);
         Movie movie = movieRepository.getById(id);
 
         long contentSize = getSizeOfMovie(movie);
 
-        System.out.println("Content size:" + contentSize);
         HttpStatus status;
         if (range[1] <= contentSize){
             // status 206
@@ -102,6 +96,8 @@ public class MovieService implements IMovieService {
 
         if (range[0] <= 20){
             System.out.println("first requests, create watching at account service");
+            System.out.println(authHeader);
+            accountServiceClient.createWatching(authHeader, movie.getId());
         }
 
         HttpHeaders headers = ServiceUtility.httpVideoBaseHeaders(contentSize, range[0], range[1]);
@@ -112,7 +108,6 @@ public class MovieService implements IMovieService {
     @Override
     public byte[] readPartOfMovie(Movie movie, long[] range) throws IOException {
         byte[] data = Files.readAllBytes(Path.of(getMoviePath(movie))); // FileUtils.readFileToByteArray(movie.getContentPath().getFile());
-        System.out.println(String.valueOf(range[0]) + " " + String.valueOf(range[1]) + "___________");
         byte[] result = new byte[(int) (range[1] - range[0]) + 1];
         System.arraycopy(data, (int) range[0], result, 0, (int) (range[1] - range[0]) + 1);
         return result;

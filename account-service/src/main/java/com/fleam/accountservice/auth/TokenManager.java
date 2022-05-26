@@ -14,7 +14,7 @@ public class TokenManager {
 
     private static final String secretKey = "fleamsecretkey";
     private static final Key signingKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final int validity = 5*60*1000;
+    private static final int validity = 60*60*1000; // 1 hour
 
 
     public static String generateToken(String usename) {

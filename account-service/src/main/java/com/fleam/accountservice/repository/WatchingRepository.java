@@ -9,4 +9,6 @@ public interface WatchingRepository extends JpaRepository<Watching, Long> {
 
     List<Watching> findAllByUserId(long userId);
 
+    Watching findByUserIdAndMovieId(long userId, long movieId);
+
 }

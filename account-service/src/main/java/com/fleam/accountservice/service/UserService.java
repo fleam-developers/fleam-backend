@@ -10,6 +10,7 @@ import com.fleam.accountservice.entity.Watching;
 import com.fleam.accountservice.repository.UserRepository;
 import com.fleam.accountservice.repository.WatchingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +59,19 @@ public class UserService implements IUserService {
 
     @Override
     public Watching createWatching(WatchingForm watchingForm){
-        User acc = entityManager.getReference(User.class, watchingForm.userId);
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        User acc = userRepository.findByUsername(username);
+        Watching w = null;
+        try{
+            w = watchingRepository.findByUserIdAndMovieId(acc.getId(), watchingForm.movieId);
+            System.out.println(w.getMovieId());
+        }catch (Exception e){
+            w = null;
+        }
+        if (w != null){
+            System.out.println("already");
+            return w;
+        }
         Watching watching = new Watching(null, watchingForm.movieId,
                 acc, 0L, new Date(System.currentTimeMillis()), false);
         watchingRepository.save(watching);
