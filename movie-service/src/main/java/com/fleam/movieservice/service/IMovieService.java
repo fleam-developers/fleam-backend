@@ -20,7 +20,7 @@ public interface IMovieService {
 
     public MovieDTO getMovie(long id);
 
-    public ResponseEntity<byte[]> streamMovie(long id, String rangeList, String authHeader) throws IOException;
+    public ResponseEntity<byte[]> streamMovie(long id, String rangeList) throws IOException;
 
     public byte[] readPartOfMovie(Movie movie, long[] range) throws IOException;
 

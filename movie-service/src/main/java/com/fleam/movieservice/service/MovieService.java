@@ -77,7 +77,7 @@ public class MovieService implements IMovieService {
     }
 
     @Override
-    public ResponseEntity<byte[]> streamMovie(long id, String rangeList, String authHeader) throws IOException {
+    public ResponseEntity<byte[]> streamMovie(long id, String rangeList) throws IOException {
         long[] range = ServiceUtility.parseHttpRangeHeader(rangeList);
         Movie movie = movieRepository.getById(id);
 
@@ -94,11 +94,11 @@ public class MovieService implements IMovieService {
             status = HttpStatus.OK;
         }
 
-        if (range[0] <= 20){
-            System.out.println("first requests, create watching at account service");
-            System.out.println(authHeader);
-            accountServiceClient.createWatching(authHeader, movie.getId());
-        }
+//        if (range[0] <= 20){
+//            System.out.println("first requests, create watching at account service");
+//            System.out.println(authHeader);
+//            accountServiceClient.createWatching(authHeader, movie.getId());
+//        }
 
         HttpHeaders headers = ServiceUtility.httpVideoBaseHeaders(contentSize, range[0], range[1]);
         byte[] data = readPartOfMovie(movie, range);

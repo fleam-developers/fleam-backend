@@ -70,9 +70,8 @@ public class MovieController {
     @ResponseBody
     public ResponseEntity<byte[]> streamMovie(
             @RequestParam(value = "movieId") long movieId,
-            @RequestHeader(value = "Range", required = false) String httpRangeList,
-            @RequestHeader("Authorization") String authHeader) throws IOException {
-        return movieService.streamMovie(movieId, httpRangeList, authHeader);
+            @RequestHeader(value = "Range", required = false) String httpRangeList) throws IOException {
+        return movieService.streamMovie(movieId, httpRangeList);
     }
 
 
