@@ -8,4 +8,5 @@ def initialize_eureka_client() -> EurekaClient:
     client.start()
     return client
 
+print("..........")
 eureka_client = initialize_eureka_client()
