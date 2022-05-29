@@ -3,8 +3,8 @@ Backend of fleam video streaming platform.
 
 Microservice architectured design:
 
-![fleam-backend](./img/fleam-backend.jpg)
 
+<img src="./img/fleam-backend.jpg" alt="fleam-microservice-architecure" width="1000"/>
 
 
 ## service ports
