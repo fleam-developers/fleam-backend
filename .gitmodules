@@ -1,0 +1,4 @@
+[submodule "fleam-recommender"]
+	path = fleam-recommender
+	url = https://github.com/fleam-developers/fleam-recommender.git
+	branch = master
