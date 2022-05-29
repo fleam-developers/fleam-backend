@@ -1,0 +1,892 @@
+{
+	"info": {
+		"_postman_id": "512831fc-cd29-47fa-a97e-2a1190ac2351",
+		"name": "fleam-deploy-gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "gateway",
+			"item": [
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "get-creators",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZWxpbSIsImlzcyI6ImZsZWFtLmNvbSIsImlhdCI6MTY1MzQzOTA0MCwiZXhwIjoxNjUzNDM5MzQwfQ.tPw5o0grK-sQjEpAKlU98xc0aax0vtbMikMUOwcoc7g",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "159.223.146.42:8080/admin/creators",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"creators"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "revert-creator",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiZXJrYXkiLCJpc3MiOiJmbGVhbS5jb20iLCJpYXQiOjE2NTM0MzkxNDAsImV4cCI6MTY1MzQzOTQ0MH0.dzlpDM5EaoAt5RnJ0pg9Vox4wy7VxvfaaapdWfUqMy4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "159.223.146.42:8080/admin/revertCreator/52",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"revertCreator",
+										"52"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-admin-statistics",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZWxpbSIsImlzcyI6ImZsZWFtLmNvbSIsImlhdCI6MTY1MzQwOTQ0MywiZXhwIjoxNjUzNDA5NzQzfQ.BeprC6YTamXhME2Zh2ZJJgdCFQI0tuPNASsISdZ1e_8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "159.223.146.42:8080/admin/statistics",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"admin",
+										"statistics"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"selim\",\n    \"password\":\"password123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "159.223.146.42:8080/auth/login",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"selim\",\n    \"email\": \"vbnvbn@gmail.com\",\n    \"password\":\"password123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "159.223.146.42:8080/auth/register",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "get_user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImlzcyI6ImZsZWFtLmNvbSIsImlhdCI6MTY1MzI2NDk3MSwiZXhwIjoxNjUzMjY1MjcxfQ.wc7TpksYy0hzGwnDNicK5cphkRwCMwnmPTPI_ypoLJs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "159.223.146.42:8080/user?userId=52",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"user"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "userId",
+											"value": "52"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "watch (internal)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjUzNTY1LCJleHAiOjE2NTMyNTM4NjV9.vo3D1zc7GBwan_maf7COr9PAzj0V0TDnqOJPK4arnE4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\":52,\n    \"movieId\":1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "159.223.146.42:8080/user/watching",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"watching"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_watchings",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjUzNTY1LCJleHAiOjE2NTMyNTM4NjV9.vo3D1zc7GBwan_maf7COr9PAzj0V0TDnqOJPK4arnE4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "159.223.146.42:8080/user/watching?userId=52",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"watching"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "52"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-history",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjUzNTY1LCJleHAiOjE2NTMyNTM4NjV9.vo3D1zc7GBwan_maf7COr9PAzj0V0TDnqOJPK4arnE4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "159.223.146.42:8080/user/history?userId=52",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"history"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "52"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "become-creator",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjUzNTY1LCJleHAiOjE2NTMyNTM4NjV9.vo3D1zc7GBwan_maf7COr9PAzj0V0TDnqOJPK4arnE4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\":52\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "159.223.146.42:8080/user/creator",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"user",
+										"creator"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "movie",
+					"item": [
+						{
+							"name": "upload",
+							"item": [
+								{
+									"name": "create-movie",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\":\"bitirme projesinin drami\",\n    \"genre\":\"Drama\",\n    \"poster_url\":\"htttp....\",\n    \"description\":\"asdasdasd\",\n    \"creator_id\":52\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "159.223.146.42:8080/movie",
+											"host": [
+												"159",
+												"223",
+												"146",
+												"42"
+											],
+											"port": "8080",
+											"path": [
+												"movie"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "upload-movie",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "movieFile",
+													"type": "file",
+													"src": "/Users/selim/Downloads/Movie on 26.05.2022 at 02.02.mp4"
+												}
+											]
+										},
+										"url": {
+											"raw": "159.223.146.42:8080/movie/upload?movieId=193611",
+											"host": [
+												"159",
+												"223",
+												"146",
+												"42"
+											],
+											"port": "8080",
+											"path": [
+												"movie",
+												"upload"
+											],
+											"query": [
+												{
+													"key": "movieId",
+													"value": "193611"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "comment",
+							"item": [
+								{
+									"name": "create-comment",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjUzNTY1LCJleHAiOjE2NTMyNTM4NjV9.vo3D1zc7GBwan_maf7COr9PAzj0V0TDnqOJPK4arnE4",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"comment\": \"qweqeqweqweqeqewq\",\n    \"userId\": 55\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "159.223.146.42:8080/movie/comment/1",
+											"host": [
+												"159",
+												"223",
+												"146",
+												"42"
+											],
+											"port": "8080",
+											"path": [
+												"movie",
+												"comment",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get-comments-of-movie",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjU4OTgwLCJleHAiOjE2NTMyNTkyODB9.DXf72aO_XbJF7XeOA4L0xAyfcQ2BNQtZEucTHBHolS8",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "159.223.146.42:8080/movie/comment/1",
+											"host": [
+												"159",
+												"223",
+												"146",
+												"42"
+											],
+											"port": "8080",
+											"path": [
+												"movie",
+												"comment",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "rating",
+							"item": [
+								{
+									"name": "get-ratings-of-movie",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjUzOTA3LCJleHAiOjE2NTMyNTQyMDd9.zArHJk8dlYkuErhxwD-Jz3i3uAoqM2i4BI2BdWrNyEE",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "159.223.146.42:8080/movie/rating/1",
+											"host": [
+												"159",
+												"223",
+												"146",
+												"42"
+											],
+											"port": "8080",
+											"path": [
+												"movie",
+												"rating",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get-rating-of-user-for-movie",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjU5ODExLCJleHAiOjE2NTMyNjAxMTF9.Peb74BEG5sg8W1vAGJpMUP1YphdG8PtiZZ2HdZFP5WQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "159.223.146.42:8080/movie/rating/1/52",
+											"host": [
+												"159",
+												"223",
+												"146",
+												"42"
+											],
+											"port": "8080",
+											"path": [
+												"movie",
+												"rating",
+												"1",
+												"52"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create-rating",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjUzOTA3LCJleHAiOjE2NTMyNTQyMDd9.zArHJk8dlYkuErhxwD-Jz3i3uAoqM2i4BI2BdWrNyEE",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"rating\":4,\n    \"userId\":53\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "159.223.146.42:8080/movie/rating/1",
+											"host": [
+												"159",
+												"223",
+												"146",
+												"42"
+											],
+											"port": "8080",
+											"path": [
+												"movie",
+												"rating",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get-avg-rating",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjU4OTgwLCJleHAiOjE2NTMyNTkyODB9.DXf72aO_XbJF7XeOA4L0xAyfcQ2BNQtZEucTHBHolS8",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "159.223.146.42:8080/movie/rating/1/average",
+											"host": [
+												"159",
+												"223",
+												"146",
+												"42"
+											],
+											"port": "8080",
+											"path": [
+												"movie",
+												"rating",
+												"1",
+												"average"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "get-movie-details",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "asd",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "159.223.146.42:8082/movie?movieId=1",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8082",
+									"path": [
+										"movie"
+									],
+									"query": [
+										{
+											"key": "movieId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "stream",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjYwNTMxLCJleHAiOjE2NTMyNjA4MzF9.AWaU0eUWzVHJDbL34jI7-BC5yZ10xRYqohY1v7JAFIM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "159.223.146.42:8080/movie/stream?movieId=1",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"movie",
+										"stream"
+									],
+									"query": [
+										{
+											"key": "movieId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "search-movie-by-name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "159.223.146.42:8080/movie/search?name=bitirme",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"movie",
+										"search"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "bitirme"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "catalog",
+					"item": [
+						{
+							"name": "get-catalog",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZXd1c2VyIiwiaXNzIjoiZmxlYW0uY29tIiwiaWF0IjoxNjUzMjU1ODAwLCJleHAiOjE2NTMyNTYxMDB9.1RBIi8KWjkvx25ozSjkpwQZis_Yj6nB61S6XmyMNIvo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "159.223.146.42:8080/catalog?userId=52",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"catalog"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "52"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-catalog-of-genre",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImlzcyI6ImZsZWFtLmNvbSIsImlhdCI6MTY1MzI2NDk3MSwiZXhwIjoxNjUzMjY1MjcxfQ.wc7TpksYy0hzGwnDNicK5cphkRwCMwnmPTPI_ypoLJs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "159.223.146.42:8080/catalog/21?userId=202",
+									"host": [
+										"159",
+										"223",
+										"146",
+										"42"
+									],
+									"port": "8080",
+									"path": [
+										"catalog",
+										"21"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "202"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

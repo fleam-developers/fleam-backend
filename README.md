@@ -1,85 +1,36 @@
 # fleam-backend
-Backend of fleam video streaming service
+Backend of fleam video streaming platform.
 
-We are going to follow [Implementing a Microservice Architecture with Spring Boot: Intro](https://medium.com/@marcus.eisele/implementing-a-microservice-architecture-with-spring-boot-intro-cdb6ad16806c) for the initial phases of backend development.
+Microservice architectured design:
+
+![fleam-backend](./img/fleam-backend.jpg)
 
 
 
+## service ports
 
-
-# docker
-
-we are going to use docker compose for containering our services
-
-[what is docker](https://www.youtube.com/watch?v=rOTqprHv1YE)
-
-[docker compose for microservices](https://www.youtube.com/watch?v=Qw9zlE3t8Ko)
-
-install docker from: https://www.docker.com/
-
-#### simple Dockerfile for java spring boot applications 
-
-(store this in corresponding service directory)
-
-```dockerfile
-FROM openjdk:17-jdk-alpine
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+```
+config-server       8888
+discover-server     8761
+gateway-service     8080
+account-service     8081
+movie-service       8082
+recommendation      8083
+postgres            5432
 ```
 
 
 
-#### simple docker-compose.yml for whole project
-
-```yaml
-version: '3'
-services:
-  templte_service:
-    build: template_service
-    ports:
-      ["8080:8080"]
-```
-
-
-
-#### build docker image
+## execution
 
 ```bash
-docker build -t fleam/template_service .
+# first build the jars
+./build_services.sh all
+
+# then docker-compose
+docker-compose up -d 
+
+# wait for a few seconds for all services are up and live
 ```
 
-#### run the application on docker container
-
-```bash
-docker run -p 8080:8080 fleam/template_service
-```
-
-
-
-# services
-
-1. create spring boot project using Spring Initializr
-
-2. do your work on the code
-
-3. build it
-
-```bash
-./mvnw package
-```
-
-
-
-(now you can run it without docker if you want)
-
-```bash
-java -jar target/project_name.jar
-```
-
-
-
-4. build docker image (as stated in  above docker part)
-
-5. run the app in docker (as stated in above docker part)
-6. 
+endpoints documented in the postman json [file](./fleam-deploy-gateway.postman_collection.json)
